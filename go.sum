@@ -3,8 +3,6 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/gorilla/context v1.1.1/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
 github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
 github.com/gorilla/sessions v1.2.1/go.mod h1:dk2InVEVJ0sfLlnXv9EAgkf6ecYs/i80K/zI+bUmuGM=
-github.com/keep94/appcommon v1.0.0 h1:9eCxdzeo6+mqJY6Viw1mZbD+/k9Z3aOojY6oDuEJojk=
-github.com/keep94/appcommon v1.0.0/go.mod h1:e7FTd+V2d+e+rr2iva0kINfUkVEvqxSBngpCmoKh0BA=
 github.com/keep94/common v1.0.0 h1:hX4MySTB6EidCCxDjcwbCmq56xjQAasTpCEY6eBxlCA=
 github.com/keep94/common v1.0.0/go.mod h1:EntqjOWDwp8pluIIK921uIKHuHXbbv/odR/yz+YZf3M=
 github.com/keep94/goconsume v1.0.0 h1:WNt2IHnuEEAbX8ix+hEiuJ/JCEY72fY02uBt1PWC6JU=
@@ -22,6 +20,8 @@ github.com/keep94/sunrise v1.0.1 h1:o2Mj+rJFGGdEOYIw6RhdI23ZZ1WfyKPH/BEp8es3rlQ=
 github.com/keep94/sunrise v1.0.1/go.mod h1:5J+OxXXSYjNwQqU9bLY2qjpPvWj00O2ZFt9l4JXUILc=
 github.com/keep94/tasks v1.0.0 h1:ZCJc7GzKUphrYpcO+6oIjvKtV1yQ7XNUAC8HT2JrA3o=
 github.com/keep94/tasks v1.0.0/go.mod h1:aiOCT4ER6+6s5MX4EoTV5VFKw3f2jDUCNljpHntxmKw=
+github.com/keep94/toolbox v0.1.0 h1:7ttx8LkXtS7af0f78/HMUAwniikRPzok4BEk/nK1Q0Y=
+github.com/keep94/toolbox v0.1.0/go.mod h1:a2tvB1+OLp+MGHyZGizIEzjMiTryFpp2TuakLTfgreo=
 github.com/keep94/weblogs v1.0.0/go.mod h1:OoIYchSf6QRvBwDLK8+PNbR8EAXwwITG7wIxKH3+AOM=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=

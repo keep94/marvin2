@@ -3,8 +3,6 @@ package huedb_test
 import (
 	"bytes"
 	"errors"
-	"github.com/keep94/appcommon/db"
-	"github.com/keep94/appcommon/db/sqlite_db"
 	"github.com/keep94/goconsume"
 	"github.com/keep94/gohue"
 	"github.com/keep94/gosqlite/sqlite"
@@ -16,6 +14,8 @@ import (
 	"github.com/keep94/marvin2/ops"
 	"github.com/keep94/maybe"
 	"github.com/keep94/tasks"
+	"github.com/keep94/toolbox/db"
+	"github.com/keep94/toolbox/db/sqlite_db"
 	"log"
 	"reflect"
 	"strconv"

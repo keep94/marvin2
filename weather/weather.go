@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/keep94/appcommon/http_util"
+	"github.com/keep94/toolbox/http_util"
 	"golang.org/x/net/html/charset"
 )
 

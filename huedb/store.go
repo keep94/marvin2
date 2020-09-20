@@ -4,12 +4,12 @@ package huedb
 import (
 	"errors"
 	"fmt"
-	"github.com/keep94/appcommon/db"
 	"github.com/keep94/goconsume"
 	"github.com/keep94/marvin2/dynamic"
 	"github.com/keep94/marvin2/lights"
 	"github.com/keep94/marvin2/ops"
 	"github.com/keep94/tasks"
+	"github.com/keep94/toolbox/db"
 	"log"
 	"time"
 )

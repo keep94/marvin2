@@ -1,11 +1,11 @@
 package for_sqlite_test
 
 import (
-	"github.com/keep94/appcommon/db/sqlite_db"
 	"github.com/keep94/gosqlite/sqlite"
 	"github.com/keep94/marvin2/huedb/fixture"
 	"github.com/keep94/marvin2/huedb/for_sqlite"
 	"github.com/keep94/marvin2/huedb/sqlite_setup"
+	"github.com/keep94/toolbox/db/sqlite_db"
 	"testing"
 )
 

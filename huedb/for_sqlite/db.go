@@ -3,15 +3,15 @@
 package for_sqlite
 
 import (
-	"github.com/keep94/appcommon/db"
-	"github.com/keep94/appcommon/db/sqlite_db"
-	"github.com/keep94/appcommon/db/sqlite_rw"
 	"github.com/keep94/goconsume"
 	"github.com/keep94/gohue"
 	"github.com/keep94/gosqlite/sqlite"
 	"github.com/keep94/marvin2/huedb"
 	"github.com/keep94/marvin2/ops"
 	"github.com/keep94/maybe"
+	"github.com/keep94/toolbox/db"
+	"github.com/keep94/toolbox/db/sqlite_db"
+	"github.com/keep94/toolbox/db/sqlite_rw"
 	"strconv"
 	"strings"
 )
