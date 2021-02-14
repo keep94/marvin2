@@ -81,11 +81,11 @@ type DescriptionMap map[int]string
 
 type descriptionMapFilter DescriptionMap
 
-func (f descriptionMapFilter) Filter(ptr interface{}) bool {
-	p := ptr.(*ops.NamedColors)
-	desc, ok := f[int(p.Id)+ops.PersistentTaskIdOffset]
+func (f descriptionMapFilter) Filter(src, dest *ops.NamedColors) bool {
+	*dest = *src
+	desc, ok := f[int(dest.Id)+ops.PersistentTaskIdOffset]
 	if ok {
-		p.Description = desc
+		dest.Description = desc
 	}
 	return true
 }
@@ -399,7 +399,7 @@ type fixDescriptionRunner struct {
 
 func (r *fixDescriptionRunner) NamedColors(
 	t db.Transaction, consumer goconsume.Consumer) error {
-	consumer = goconsume.Filter(consumer, r.filter.Filter)
+	consumer = goconsume.MapFilter(consumer, r.filter.Filter)
 	return r.delegate.NamedColors(t, consumer)
 }
 
@@ -410,10 +410,11 @@ type fixDescriptionByIdRunner struct {
 
 func (r *fixDescriptionByIdRunner) NamedColorsById(
 	t db.Transaction, id int64, namedColors *ops.NamedColors) error {
-	if err := r.delegate.NamedColorsById(t, id, namedColors); err != nil {
+	var origNamedColors ops.NamedColors
+	if err := r.delegate.NamedColorsById(t, id, &origNamedColors); err != nil {
 		return err
 	}
-	r.filter.Filter(namedColors)
+	r.filter.Filter(&origNamedColors, namedColors)
 	return nil
 }
 
