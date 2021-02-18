@@ -3,7 +3,7 @@ module github.com/keep94/marvin2
 go 1.14
 
 require (
-	github.com/keep94/goconsume v1.0.1
+	github.com/keep94/goconsume v1.1.0
 	github.com/keep94/gofunctional3 v1.0.0
 	github.com/keep94/gohue v1.0.0
 	github.com/keep94/gosqlite v1.0.0
