@@ -49,8 +49,12 @@ type RemoveNamedColorsRunner interface {
 // HueTasks returns all the named colors as hue tasks.
 func HueTasks(store NamedColorsRunner) (ops.HueTaskList, error) {
 	var tasks ops.HueTaskList
-	consumer := consume.AppendTo(&tasks)
-	consumer = &namedColorsToHueTaskConsumer{Consumer: consumer}
+	consumer := consume.MapFilter(
+		consume.AppendTo(&tasks),
+		func(src *ops.NamedColors, dest **ops.HueTask) bool {
+			*dest = src.AsHueTask()
+			return true
+		})
 	if err := store.NamedColors(nil, consumer); err != nil {
 		return nil, err
 	}
@@ -416,16 +420,4 @@ func (r *fixDescriptionByIdRunner) NamedColorsById(
 	}
 	r.filter.Filter(&origNamedColors, namedColors)
 	return nil
-}
-
-type namedColorsToHueTaskConsumer struct {
-	consume.Consumer
-	hueTask *ops.HueTask
-}
-
-func (n *namedColorsToHueTaskConsumer) Consume(ptr interface{}) {
-	consume.MustCanConsume(n)
-	p := ptr.(*ops.NamedColors)
-	n.hueTask = p.AsHueTask()
-	n.Consumer.Consume(&n.hueTask)
 }
