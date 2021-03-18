@@ -3,7 +3,7 @@ package huedb_test
 import (
 	"bytes"
 	"errors"
-	"github.com/keep94/goconsume"
+	"github.com/keep94/consume"
 	"github.com/keep94/gohue"
 	"github.com/keep94/gosqlite/sqlite"
 	"github.com/keep94/marvin2/dynamic"
@@ -431,7 +431,7 @@ func verifyAtTimeTaskStoreNormal(t *testing.T, store *huedb.AtTimeTaskStore) {
 type fakeNamedColorsRunner []*ops.NamedColors
 
 func (f fakeNamedColorsRunner) NamedColors(
-	t db.Transaction, consumer goconsume.Consumer) error {
+	t db.Transaction, consumer consume.Consumer) error {
 	for i := range f {
 		if !consumer.CanConsume() {
 			break
@@ -468,7 +468,7 @@ func (f fakeEncodedAtTimeTaskStoreWithErrors) RemoveEncodedAtTimeTaskByScheduleI
 }
 
 func (f fakeEncodedAtTimeTaskStoreWithErrors) EncodedAtTimeTasks(
-	t db.Transaction, groupId string, consumer goconsume.Consumer) error {
+	t db.Transaction, groupId string, consumer consume.Consumer) error {
 	for i := range f {
 		if !consumer.CanConsume() {
 			break
@@ -510,7 +510,7 @@ func (f fakeEncodedAtTimeTaskStore) Size() (result int) {
 }
 
 func (f fakeEncodedAtTimeTaskStore) EncodedAtTimeTasks(
-	t db.Transaction, groupId string, consumer goconsume.Consumer) error {
+	t db.Transaction, groupId string, consumer consume.Consumer) error {
 	for i := range f {
 		if !consumer.CanConsume() {
 			break

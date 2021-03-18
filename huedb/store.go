@@ -4,7 +4,7 @@ package huedb
 import (
 	"errors"
 	"fmt"
-	"github.com/keep94/goconsume"
+	"github.com/keep94/consume"
 	"github.com/keep94/marvin2/dynamic"
 	"github.com/keep94/marvin2/lights"
 	"github.com/keep94/marvin2/ops"
@@ -28,7 +28,7 @@ type NamedColorsByIdRunner interface {
 
 type NamedColorsRunner interface {
 	// NamedColors gets all named colors.
-	NamedColors(t db.Transaction, consumer goconsume.Consumer) error
+	NamedColors(t db.Transaction, consumer consume.Consumer) error
 }
 
 type AddNamedColorsRunner interface {
@@ -49,7 +49,7 @@ type RemoveNamedColorsRunner interface {
 // HueTasks returns all the named colors as hue tasks.
 func HueTasks(store NamedColorsRunner) (ops.HueTaskList, error) {
 	var tasks ops.HueTaskList
-	consumer := goconsume.AppendTo(&tasks)
+	consumer := consume.AppendTo(&tasks)
 	consumer = &namedColorsToHueTaskConsumer{Consumer: consumer}
 	if err := store.NamedColors(nil, consumer); err != nil {
 		return nil, err
@@ -177,7 +177,7 @@ type EncodedAtTimeTaskStore interface {
 
 	// EncodedAtTimeTasks fetches all tasks in a particular group.
 	EncodedAtTimeTasks(
-		t db.Transaction, groupId string, consumer goconsume.Consumer) error
+		t db.Transaction, groupId string, consumer consume.Consumer) error
 }
 
 // ActionEncoder converts a hue action to a string.
@@ -303,7 +303,7 @@ func NewAtTimeTaskStore(
 // All returns all tasks.
 func (s *AtTimeTaskStore) All() []*ops.AtTimeTask {
 	var allEncoded []*EncodedAtTimeTask
-	consumer := goconsume.AppendPtrsTo(&allEncoded)
+	consumer := consume.AppendPtrsTo(&allEncoded)
 	if err := s.store.EncodedAtTimeTasks(nil, s.groupId, consumer); err != nil {
 		s.logger.Println(err)
 		return nil
@@ -398,8 +398,8 @@ type fixDescriptionRunner struct {
 }
 
 func (r *fixDescriptionRunner) NamedColors(
-	t db.Transaction, consumer goconsume.Consumer) error {
-	consumer = goconsume.MapFilter(consumer, r.filter.Filter)
+	t db.Transaction, consumer consume.Consumer) error {
+	consumer = consume.MapFilter(consumer, r.filter.Filter)
 	return r.delegate.NamedColors(t, consumer)
 }
 
@@ -419,12 +419,12 @@ func (r *fixDescriptionByIdRunner) NamedColorsById(
 }
 
 type namedColorsToHueTaskConsumer struct {
-	goconsume.Consumer
+	consume.Consumer
 	hueTask *ops.HueTask
 }
 
 func (n *namedColorsToHueTaskConsumer) Consume(ptr interface{}) {
-	goconsume.MustCanConsume(n)
+	consume.MustCanConsume(n)
 	p := ptr.(*ops.NamedColors)
 	n.hueTask = p.AsHueTask()
 	n.Consumer.Consume(&n.hueTask)

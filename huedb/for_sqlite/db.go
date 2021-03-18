@@ -3,7 +3,7 @@
 package for_sqlite
 
 import (
-	"github.com/keep94/goconsume"
+	"github.com/keep94/consume"
 	"github.com/keep94/gohue"
 	"github.com/keep94/gosqlite/sqlite"
 	"github.com/keep94/marvin2/huedb"
@@ -54,7 +54,7 @@ func (s Store) NamedColorsById(
 }
 
 func (s Store) NamedColors(
-	t db.Transaction, consumer goconsume.Consumer) error {
+	t db.Transaction, consumer consume.Consumer) error {
 	return sqlite_db.ToDoer(s.db, t).Do(func(conn *sqlite.Conn) error {
 		return sqlite_rw.ReadMultiple(
 			conn,
@@ -92,7 +92,7 @@ func (s Store) RemoveNamedColors(t db.Transaction, id int64) error {
 }
 
 func (s Store) EncodedAtTimeTasks(
-	t db.Transaction, groupId string, consumer goconsume.Consumer) error {
+	t db.Transaction, groupId string, consumer consume.Consumer) error {
 	return sqlite_db.ToDoer(s.db, t).Do(func(conn *sqlite.Conn) error {
 		return sqlite_rw.ReadMultiple(
 			conn,

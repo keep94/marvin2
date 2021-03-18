@@ -3,7 +3,7 @@
 package fixture
 
 import (
-	"github.com/keep94/goconsume"
+	"github.com/keep94/consume"
 	"github.com/keep94/gohue"
 	"github.com/keep94/marvin2/huedb"
 	"github.com/keep94/marvin2/ops"
@@ -67,7 +67,7 @@ func NamedColors(t *testing.T, store NamedColorsStore) {
 	var first, second ops.NamedColors
 	createNamedColors(t, store, &first, &second)
 	var results []ops.NamedColors
-	if err := store.NamedColors(nil, goconsume.AppendTo(&results)); err != nil {
+	if err := store.NamedColors(nil, consume.AppendTo(&results)); err != nil {
 		t.Errorf("Got error reading database: %v", err)
 	}
 	if out := len(results); out != 2 {
