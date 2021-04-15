@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strconv"
 	"sync"
+	"time"
 
 	"github.com/keep94/toolbox/http_util"
 	"golang.org/x/net/html/charset"
@@ -137,6 +138,46 @@ func (p *PurpleAirConn) GetAQI(stationId int64) (aqi int, err error) {
 		return
 	}
 	return computeAQI(pm2_5), nil
+}
+
+// PurpleAirConn implements this interface.
+type AQIGetter interface {
+	GetAQI(stationId int64) (aqi int, err error)
+}
+
+// AvgAQI returns the average AQI index over multiple stations rounded to
+// the nearest whole number. delayBetweenCalls is the time delay between
+// calls to get the AQI of each station. If getting the AQI for a station
+// returns an error, that station is omitted from the average AQI returned.
+// If AvgAQI is unable to get an AQI from any of the stations, it returns
+// the last error encountered. AvgAQI panics if no stationIds are passed to
+// it.
+func AvgAQI(
+	getter AQIGetter,
+	delayBetweenCalls time.Duration,
+	stationIds ...int64) (aqi int, err error) {
+	if len(stationIds) == 0 {
+		panic("AvgAQI must get at least one stationId")
+	}
+	var cerr error
+	n := 0
+	sum := 0
+	for i, stationId := range stationIds {
+		var aqi int
+		aqi, cerr = getter.GetAQI(stationId)
+		if i < len(stationIds)-1 {
+			time.Sleep(delayBetweenCalls)
+		}
+		if cerr != nil {
+			continue
+		}
+		n++
+		sum += aqi
+	}
+	if n == 0 {
+		return 0, cerr
+	}
+	return round(float64(sum) / float64(n)), nil
 }
 
 // ReportCache stores a single weather report and notifies clients when

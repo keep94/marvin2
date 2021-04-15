@@ -1,7 +1,9 @@
 package weather_test
 
 import (
+	"errors"
 	"testing"
+	"time"
 
 	"github.com/keep94/marvin2/weather"
 	asserts "github.com/stretchr/testify/assert"
@@ -55,4 +57,33 @@ func TestReportCache(t *testing.T) {
 	<-stale
 	report, _ = cache.Get()
 	assert.Equal(35.0, report.Temperature)
+}
+
+func TestAvgAQI(t *testing.T) {
+	assert := asserts.New(t)
+	conn := fakeConn{1001: 35, 1002: 100, 1003: 45}
+	aqi, err := weather.AvgAQI(conn, time.Millisecond, 1001, 1002, 1003)
+	assert.Equal(60, aqi)
+	assert.NoError(err)
+	aqi, err = weather.AvgAQI(conn, time.Millisecond, 1001, 1002, 9999)
+	assert.Equal(68, aqi)
+	assert.NoError(err)
+	aqi, err = weather.AvgAQI(conn, time.Millisecond, 9999, 9998, 9997)
+	assert.Error(err)
+}
+
+func TestAvgAQIPanics(t *testing.T) {
+	assert := asserts.New(t)
+	conn := fakeConn{1001: 35, 1002: 100, 1003: 45}
+	assert.Panics(func() { weather.AvgAQI(conn, time.Millisecond) })
+}
+
+type fakeConn map[int64]int
+
+func (f fakeConn) GetAQI(stationId int64) (int, error) {
+	aqi, ok := f[stationId]
+	if !ok {
+		return 0, errors.New("No such stationId")
+	}
+	return aqi, nil
 }
