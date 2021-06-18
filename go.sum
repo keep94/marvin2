@@ -3,7 +3,6 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/gorilla/context v1.1.1/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
 github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
 github.com/gorilla/sessions v1.2.1/go.mod h1:dk2InVEVJ0sfLlnXv9EAgkf6ecYs/i80K/zI+bUmuGM=
-github.com/keep94/common v1.0.0 h1:hX4MySTB6EidCCxDjcwbCmq56xjQAasTpCEY6eBxlCA=
 github.com/keep94/common v1.0.0/go.mod h1:EntqjOWDwp8pluIIK921uIKHuHXbbv/odR/yz+YZf3M=
 github.com/keep94/common v1.0.1 h1:C2/fluO5iy1PJMugMFlwr9Hahjklg6AzTOnmgRQ0K9I=
 github.com/keep94/common v1.0.1/go.mod h1:EntqjOWDwp8pluIIK921uIKHuHXbbv/odR/yz+YZf3M=

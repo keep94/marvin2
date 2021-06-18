@@ -38,24 +38,22 @@ func TestReportCache(t *testing.T) {
 	assert := asserts.New(t)
 	cache := weather.NewReportCache()
 	defer cache.Close()
-	report, stale := cache.Get()
-	assert.Zero(*report)
+	var report weather.Report
+	stale := cache.Get(&report)
+	assert.Zero(report)
 	go func() {
-		report := &weather.Report{Temperature: 25.0}
-		cache.Set(report)
+		report := weather.Report{Temperature: 25.0}
+		cache.Set(&report)
 		report.Temperature = 95.0
 	}()
 	<-stale
-	report, _ = cache.Get()
-	assert.Equal(25.0, report.Temperature)
-	report.Temperature = 99.0
-	report, stale = cache.Get()
+	stale = cache.Get(&report)
 	assert.Equal(25.0, report.Temperature)
 	go func() {
 		cache.Set(&weather.Report{Temperature: 35.0})
 	}()
 	<-stale
-	report, _ = cache.Get()
+	cache.Get(&report)
 	assert.Equal(35.0, report.Temperature)
 }
 

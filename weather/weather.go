@@ -199,13 +199,13 @@ func (r *ReportCache) Set(report *Report) {
 	close(r.set(report, make(chan struct{})))
 }
 
-// Get returns a shallow copy of the current report. Clients can use the
+// Get stores the current report at result. Clients can use the
 // returned channel to block until a new report is available.
-func (r *ReportCache) Get() (*Report, <-chan struct{}) {
+func (r *ReportCache) Get(result *Report) <-chan struct{} {
 	r.lock.Lock()
 	defer r.lock.Unlock()
-	result := r.report
-	return &result, r.stale
+	*result = r.report
+	return r.stale
 }
 
 // Close frees resources associated with this report cache.
