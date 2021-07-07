@@ -16,16 +16,31 @@ var (
 	kFirstNamedColor = &ops.NamedColors{
 		Description: "Foo",
 		Colors: ops.LightColors{
-			3: {gohue.NewMaybeColor(gohue.NewColor(0.5, 0.3)), maybe.NewUint8(98)},
-			5: {gohue.NewMaybeColor(gohue.NewColor(0.6, 0.4)), maybe.NewUint8(0)},
-
-			6: {gohue.MaybeColor{}, maybe.Uint8{}}},
+			3: {
+				Color:      gohue.NewMaybeColor(gohue.NewColor(0.5, 0.3)),
+				Brightness: maybe.NewUint8(98),
+			},
+			5: {
+				Color:      gohue.NewMaybeColor(gohue.NewColor(0.6, 0.4)),
+				Brightness: maybe.NewUint8(0),
+			},
+			6: {
+				Color:      gohue.MaybeColor{},
+				Brightness: maybe.Uint8{},
+			},
+		},
 	}
 	kSecondNamedColor = &ops.NamedColors{
 		Description: "Bar",
 		Colors: ops.LightColors{
-			2: {gohue.NewMaybeColor(gohue.NewColor(0.22, 0.39)), maybe.NewUint8(255)},
-			7: {gohue.NewMaybeColor(gohue.NewColor(0.58, 0.41)), maybe.NewUint8(35)},
+			2: {
+				Color:      gohue.NewMaybeColor(gohue.NewColor(0.22, 0.39)),
+				Brightness: maybe.NewUint8(255),
+			},
+			7: {
+				Color:      gohue.NewMaybeColor(gohue.NewColor(0.58, 0.41)),
+				Brightness: maybe.NewUint8(35),
+			},
 		},
 	}
 )
@@ -82,7 +97,11 @@ func UpdateNamedColors(t *testing.T, store UpdateNamedColorsStore) {
 	createNamedColors(t, store, &first, &second)
 	second.Description = "Green"
 	second.Colors = ops.LightColors{
-		14: {gohue.NewMaybeColor(gohue.NewColor(0.6, 0.57)), maybe.NewUint8(17)}}
+		14: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.6, 0.57)),
+			Brightness: maybe.NewUint8(17),
+		},
+	}
 	if err := store.UpdateNamedColors(nil, &second); err != nil {
 		t.Errorf("Got error updating database: %v", err)
 	}
@@ -107,12 +126,20 @@ func UpdateNamedColors(t *testing.T, store UpdateNamedColorsStore) {
 
 	// Invalid colors
 	second.Colors = ops.LightColors{
-		-1: {gohue.NewMaybeColor(gohue.NewColor(0.29, 0.29)), maybe.NewUint8(99)}}
+		-1: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.29, 0.29)),
+			Brightness: maybe.NewUint8(99),
+		},
+	}
 	if err := store.UpdateNamedColors(nil, &second); err == nil {
 		t.Error("Expected to get an error because of invalid light Id")
 	}
 	second.Colors = ops.LightColors{
-		35: {gohue.NewMaybeColor(gohue.NewColor(1.29, 0.27)), maybe.NewUint8(101)}}
+		35: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(1.29, 0.27)),
+			Brightness: maybe.NewUint8(101),
+		},
+	}
 	if err := store.UpdateNamedColors(nil, &second); err == nil {
 		t.Error("Expected to get an error because of invalid color")
 	}

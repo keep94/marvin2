@@ -482,8 +482,8 @@ func (p PlainColorFactory) Decode(s string) (action ops.HueAction, err error) {
 func plainAction(color gohue.Color, brightness uint8) ops.HueAction {
 	return ops.StaticHueAction{
 		0: ops.ColorBrightness{
-			gohue.NewMaybeColor(color),
-			maybe.NewUint8(brightness),
+			Color:      gohue.NewMaybeColor(color),
+			Brightness: maybe.NewUint8(brightness),
 		},
 	}
 }

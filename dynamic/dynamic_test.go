@@ -64,7 +64,11 @@ func TestPicker(t *testing.T) {
 
 func TestConstant(t *testing.T) {
 	anAction := ops.StaticHueAction{
-		0: {gohue.NewMaybeColor(gohue.Blue), maybe.NewUint8(87)}}
+		0: {
+			Color:      gohue.NewMaybeColor(gohue.Blue),
+			Brightness: maybe.NewUint8(87),
+		},
+	}
 	factory := dynamic.Constant(anAction)
 	aTask := &dynamic.HueTask{
 		Id:          112,
@@ -78,7 +82,10 @@ func TestConstant(t *testing.T) {
 		Id:          112,
 		Description: "Baz",
 		HueAction: ops.StaticHueAction{
-			0: {gohue.NewMaybeColor(gohue.Blue), maybe.NewUint8(87)},
+			0: {
+				Color:      gohue.NewMaybeColor(gohue.Blue),
+				Brightness: maybe.NewUint8(87),
+			},
 		},
 	}
 	actual := aTask.FromUrlValues("p", urlValues)
@@ -106,7 +113,10 @@ func TestFromUrlValues(t *testing.T) {
 		Id:          105,
 		Description: "Foo Color: Red Bri: 98",
 		HueAction: ops.StaticHueAction{
-			0: {gohue.NewMaybeColor(gohue.Red), maybe.NewUint8(98)},
+			0: {
+				Color:      gohue.NewMaybeColor(gohue.Red),
+				Brightness: maybe.NewUint8(98),
+			},
 		},
 	}
 	actual := aTask.FromUrlValues("p", urlValues)
@@ -119,7 +129,10 @@ func TestFromUrlValues(t *testing.T) {
 		Id:          105,
 		Description: "Foo Color: White Bri: 255",
 		HueAction: ops.StaticHueAction{
-			0: {gohue.NewMaybeColor(gohue.White), maybe.NewUint8(gohue.Bright)},
+			0: {
+				Color:      gohue.NewMaybeColor(gohue.White),
+				Brightness: maybe.NewUint8(gohue.Bright),
+			},
 		},
 	}
 	// No supplied values
@@ -139,7 +152,10 @@ func TestPlainFactoryNewExplicit(t *testing.T) {
 		Id:          107,
 		Description: "Bar Color: Blue Bri: 131",
 		HueAction: ops.StaticHueAction{
-			0: {gohue.NewMaybeColor(gohue.Blue), maybe.NewUint8(131)},
+			0: {
+				Color:      gohue.NewMaybeColor(gohue.Blue),
+				Brightness: maybe.NewUint8(131),
+			},
 		},
 	}
 	actual := aTask.FromExplicit(
@@ -160,7 +176,10 @@ func TestPlainColorFactoryNewExplicit(t *testing.T) {
 		Id:          108,
 		Description: "Baz Bri: 52",
 		HueAction: ops.StaticHueAction{
-			0: {gohue.NewMaybeColor(gohue.Pink), maybe.NewUint8(52)},
+			0: {
+				Color:      gohue.NewMaybeColor(gohue.Pink),
+				Brightness: maybe.NewUint8(52),
+			},
 		},
 	}
 	actual := aTask.FromExplicit(

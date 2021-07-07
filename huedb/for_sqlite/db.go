@@ -193,7 +193,8 @@ func (r *rawNamedColors) Unmarshall() error {
 			}
 			theBrightness.Set(uint8(ibrightness))
 		}
-		lightColors[lightId] = ops.ColorBrightness{theColor, theBrightness}
+		lightColors[lightId] = ops.ColorBrightness{
+			Color: theColor, Brightness: theBrightness}
 	}
 	if len(lightColors) == 0 {
 		r.Colors = nil

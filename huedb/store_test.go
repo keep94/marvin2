@@ -37,12 +37,24 @@ const (
 
 var (
 	kColorMap1 = ops.LightColors{
-		2: {gohue.NewMaybeColor(gohue.NewColor(0.35, 0.52)), maybe.NewUint8(99)},
-		7: {gohue.NewMaybeColor(gohue.NewColor(0.51, 0.29)), maybe.NewUint8(113)},
+		2: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.35, 0.52)),
+			Brightness: maybe.NewUint8(99),
+		},
+		7: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.51, 0.29)),
+			Brightness: maybe.NewUint8(113),
+		},
 	}
 	kColorMap2 = ops.LightColors{
-		3: {gohue.NewMaybeColor(gohue.NewColor(0.41, 0.43)), maybe.NewUint8(20)},
-		5: {gohue.NewMaybeColor(gohue.NewColor(0.62, 0.28)), maybe.NewUint8(222)},
+		3: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.41, 0.43)),
+			Brightness: maybe.NewUint8(20),
+		},
+		5: {
+			Color:      gohue.NewMaybeColor(gohue.NewColor(0.62, 0.28)),
+			Brightness: maybe.NewUint8(222),
+		},
 	}
 	kFakeStore = fakeNamedColorsRunner{
 		{
